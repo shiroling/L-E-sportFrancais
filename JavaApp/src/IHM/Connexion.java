@@ -10,9 +10,6 @@ import javax.swing.SwingConstants;
 import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.JTextField;
-import java.awt.GridBagLayout;
-import java.awt.GridLayout;
-import java.awt.Window.Type;
 
 public class Connexion extends JDialog {
 

@@ -13,16 +13,11 @@ import java.awt.SystemColor;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import javax.swing.JComboBox;
-import javax.swing.border.BevelBorder;
 import javax.swing.border.LineBorder;
 import javax.swing.JList;
-import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.AbstractListModel;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 
 public class Accueil {
 

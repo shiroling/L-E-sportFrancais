@@ -5,24 +5,18 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-import com.modeliosoft.modelio.javadesigner.annotations.objid;
 
-@objid ("f38b193e-acac-4040-9dc4-7b7dda061120")
 public class Equipe {
-    @objid ("29e90e63-efed-4d75-aba9-954617c74718")
     private int idEquipe;
 
-    @objid ("a3a2e72d-bb4c-4e92-a98b-a3f7b12f5ca2")
     public int getIdEquipe() {
         return this.idEquipe;
     }
 
-    @objid ("e6f3a80e-b468-41f7-a247-0c3006f812b3")
     public Equipe(int idEquipe) {
         this.idEquipe = idEquipe;
     }
 
-    @objid ("422359c7-b11d-4995-8de0-1f080021b906")
     public String getNomEquipe() {
     	Connection connex = ConnexionBase.getConnection();
         try {
@@ -36,7 +30,6 @@ public class Equipe {
 		}
     }
 
-    @objid ("e9738db4-546d-4407-bf14-2d96a117e6e3")
     public List<Joueur> getListJoueur() {
     	Connection connex = ConnexionBase.getConnection();
         try {

@@ -7,19 +7,14 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import com.modeliosoft.modelio.javadesigner.annotations.objid;
 
-@objid ("01ec42e6-1340-4440-8beb-c29f380e426e")
 public class Rencontre {
-    @objid ("a9768312-82c1-4d3f-b94c-8acedd179618")
     private int idRencontre;
 
-    @objid ("71af6a1e-d4f3-4e18-b0c7-9ac2eff4bb11")
     public int getIdRencontre() {
         return this.idRencontre;
     }
 
-    @objid ("0b6d534b-c116-4d81-8d35-39d4cd452bf1")
     public Rencontre(int idRencontre) {
         this.idRencontre = idRencontre;
     }
@@ -42,7 +37,6 @@ public class Rencontre {
 		}
     }
 
-    @objid ("345a9bd6-4f3e-483e-a71d-177e727740a5")
     public Equipe getVainqueur() {
     	Connection connex = ConnexionBase.getConnection();
         try {
@@ -55,7 +49,6 @@ public class Rencontre {
 		}
     }
 
-    @objid ("c0a8ba13-1b49-42bb-9c69-fac0810e18c5")
     public Equipe getPerdant() {
     	Connection connex = ConnexionBase.getConnection();
         try {
