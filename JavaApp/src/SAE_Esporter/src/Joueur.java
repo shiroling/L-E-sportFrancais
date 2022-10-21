@@ -28,8 +28,10 @@ public class Joueur {
         try {
         	Statement st = connex.createStatement();
         	ResultSet rs = st.executeQuery("Select Nom from Joueur where id_joueur = "+ this.getIdJoueur());
+        	rs.next();
+        	String result = rs.getString(1);
         	connex.close();
-        	return rs.getString(1);
+        	return result;
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 			return null;
@@ -42,8 +44,10 @@ public class Joueur {
         try {
         	Statement st = connex.createStatement();
         	ResultSet rs = st.executeQuery("Select Prenom from Joueur where id_joueur = "+ this.getIdJoueur());
+        	rs.next();
+        	String result = rs.getString(1);
         	connex.close();
-        	return rs.getString(1);
+        	return result;
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 			return null;
@@ -56,8 +60,10 @@ public class Joueur {
         try {
         	Statement st = connex.createStatement();
         	ResultSet rs = st.executeQuery("Select Date_de_naissance from Joueur where id_joueur = "+ this.getIdJoueur());
+        	rs.next();
+        	Date result = rs.getDate(1);
         	connex.close();
-        	return rs.getDate(1);
+        	return result;
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 			return null;
@@ -70,8 +76,10 @@ public class Joueur {
         try {
         	Statement st = connex.createStatement();
         	ResultSet rs = st.executeQuery("Select Pseudo from Joueur where id_Joueur = "+ this.getIdJoueur());
+        	rs.next();
+        	String result = rs.getString(1);
         	connex.close();
-        	return rs.getString(1);
+        	return result;
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 			return null;

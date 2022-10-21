@@ -48,8 +48,10 @@ public class Ecurie {
         try {
         	Statement st = connex.createStatement();
         	ResultSet rs = st.executeQuery("Select Nom_ecurie from Ecurie where id_Ecurie = "+ this.getIdEcurie());
+        	rs.next();
+        	String result = rs.getString(1);
         	connex.close();
-        	return rs.getString(1);
+        	return result;
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 			return null;
@@ -61,9 +63,11 @@ public class Ecurie {
     	Connection connex = ConnexionBase.getConnection();
         try {
         	Statement st = connex.createStatement();
-        	ResultSet rs = st.executeQuery("Select Nom_manager from Ecuriewhere id_Ecurie = "+ this.getIdEcurie());
+        	ResultSet rs = st.executeQuery("Select Nom_manager from Ecurie where id_Ecurie = "+ this.getIdEcurie());
+        	rs.next();
+        	String result = rs.getString(1);
         	connex.close();
-        	return rs.getString(1);
+        	return result;
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 			return null;

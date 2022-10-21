@@ -27,8 +27,10 @@ public class Poule {
         try {
         	Statement st = connex.createStatement();
         	ResultSet rs = st.executeQuery("Select Final from Poule where id_Poule = "+ this.getIdPoule());
+        	rs.next();
+        	boolean result = rs.getBoolean(1);
         	connex.close();
-        	return rs.getBoolean(1);
+        	return result;
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 			return false;

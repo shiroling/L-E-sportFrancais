@@ -48,7 +48,10 @@ public class Rencontre {
         try {
         	Statement st = connex.createStatement();
         	ResultSet rs = st.executeQuery("Select id_equipe from Jouer where id_Rencontre = "+ this.getIdRencontre() + " and a_gagne = 1");
-        	return new Equipe(rs.getInt(1));
+        	rs.next();
+        	int var = rs.getInt(1);
+        	connex.close();
+        	return new Equipe(var);
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 			return null;
@@ -61,7 +64,10 @@ public class Rencontre {
         try {
         	Statement st = connex.createStatement();
         	ResultSet rs = st.executeQuery("Select id_equipe from Jouer where id_Rencontre = "+ this.getIdRencontre() + " and a_gagne = 0");
-        	return new Equipe(rs.getInt(1));
+        	rs.next();
+        	int var = rs.getInt(1);
+        	connex.close();
+        	return new Equipe(var);
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 			return null;
@@ -73,7 +79,10 @@ public class Rencontre {
         try {
         	Statement st = connex.createStatement();
         	ResultSet rs = st.executeQuery("Select Date_rencontre from Rencontre where id_Rencontre = "+ this.getIdRencontre());
-        	return rs.getDate(1);
+        	rs.next();
+        	Date result = rs.getDate(1);
+        	connex.close();
+        	return result;
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 			return null;

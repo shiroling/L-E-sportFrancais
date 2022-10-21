@@ -27,8 +27,10 @@ public class Jeu {
         try {
         	Statement st = connex.createStatement();
         	ResultSet rs = st.executeQuery("Select Nom_jeu from Jeu where id_Jeu = "+ this.getIdJeu());
+        	rs.next();
+        	String result = rs.getString(1);
         	connex.close();
-        	return rs.getString(1);
+        	return result;
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 			return null;

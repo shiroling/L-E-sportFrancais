@@ -30,8 +30,10 @@ public class Tournoi {
         try {
         	Statement st = connex.createStatement();
         	ResultSet rs = st.executeQuery("Select Nom from Tournoi where id_tournoi = "+ this.getIdTournoi());
+        	rs.next();
+        	String result = rs.getString(1);
         	connex.close();
-        	return rs.getString(1);
+        	return result;
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 			return null;
@@ -65,8 +67,10 @@ public class Tournoi {
         try {
         	Statement st = connex.createStatement();
         	ResultSet rs = st.executeQuery("Select dateInscription from inscrit where id_tournoi = "+ this.getIdTournoi() + " and id_equipe = " + equipe.getIdEquipe());
+        	rs.next();
+        	Date result = rs.getDate(1);
         	connex.close();
-        	return rs.getDate(1);
+        	return result;
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 			return null;
