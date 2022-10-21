@@ -1,0 +1,5 @@
+isArbitre()
+isGestionnaire()
+
+isManager()
+isTeamManager()
