@@ -3,6 +3,8 @@ package SAE_Esporter.src;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 
@@ -31,6 +33,28 @@ public class Jeu {
         	String result = rs.getString(1);
         	connex.close();
         	return result;
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			return null;
+		}
+    }
+    
+    public static String[] getTousLesJeux() {
+    	Connection connex = ConnexionBase.getConnection();
+        try {
+        	Statement st = connex.createStatement();
+        	ResultSet rs = st.executeQuery("SELECT id_Jeu from Jeu");
+        	List<Jeu> jeux = new ArrayList<>();
+        	while(rs.next()) {
+        		jeux.add(new Jeu(rs.getInt(1)));
+        	}
+        	connex.close();
+        	
+        	String[] nomJeux = new String[jeux.size()];
+        	for(int i = 0; i < jeux.size() ; i++) {
+        		nomJeux[i] = jeux.get(i).toString();
+        	}
+        	return nomJeux;
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 			return null;

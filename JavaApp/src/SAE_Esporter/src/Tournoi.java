@@ -62,6 +62,28 @@ public class Tournoi {
     public static void creerTournoi(String nom, Portee p, Date dateDebut, Date dateFin) { 
     }
     
+    public static String[] getTousLesTournois() {
+    	Connection connex = ConnexionBase.getConnection();
+        try {
+        	Statement st = connex.createStatement();
+        	ResultSet rs = st.executeQuery("SELECT id_tournoi from tournoi");
+        	List<Tournoi> tournois = new ArrayList<>();
+        	while(rs.next()) {
+        		tournois.add(new Tournoi(rs.getInt(1)));
+        	}
+        	connex.close();
+        	
+        	String[] nomTournois = new String[tournois.size()];
+        	for(int i = 0; i < tournois.size() ; i++) {
+        		nomTournois[i] = tournois.get(i).toString();
+        	}
+        	return nomTournois;
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			return null;
+		}
+    }
+    
     public Date getDateInscriptionEquipe(Equipe equipe) {
     	Connection connex = ConnexionBase.getConnection();
         try {

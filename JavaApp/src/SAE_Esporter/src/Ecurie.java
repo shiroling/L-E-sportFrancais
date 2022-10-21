@@ -74,6 +74,28 @@ public class Ecurie {
 		}
     }
     
+    public static String[] getToutesLesEcuries() {
+    	Connection connex = ConnexionBase.getConnection();
+        try {
+        	Statement st = connex.createStatement();
+        	ResultSet rs = st.executeQuery("SELECT id_Ecurie from Ecurie");
+        	List<Ecurie> ecuries = new ArrayList<>();
+        	while(rs.next()) {
+        		ecuries.add(new Ecurie(rs.getInt(1)));
+        	}
+        	connex.close();
+        	
+        	String[] nomEcuries = new String[ecuries.size()];
+        	for(int i = 0; i < ecuries.size() ; i++) {
+        		nomEcuries[i] = ecuries.get(i).toString();
+        	}
+        	return nomEcuries;
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			return null;
+		}
+    }
+    
     @Override
     public String toString() {
     	return ""+ this.getNomEcurie() +" ("+this.getNomManager()+ ")";
