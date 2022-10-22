@@ -6,12 +6,7 @@
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="C:/Users/Jehan/.modelio/4.1/modules/JavaDesigner_3.10.00/JavaDesigner/bin/javadesigner.jar">
-		<attributes>
-			<attribute name="module" value="true"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="C:/Users/Jehan/Downloads/ojdbc8.jar">
+	<classpathentry kind="lib" path="C:/Users/quent/Git/L-E-sportFrancais/JavaApp/dependencies/ojdbc8.jar">
 		<attributes>
 			<attribute name="module" value="true"/>
 		</attributes>

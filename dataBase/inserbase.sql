@@ -20,3 +20,34 @@ Insert INTO JOUEUR values(seq_JOUEUR.nextval, 'DIEULAFAIT', 'Benjamin', to_date(
 Insert INTO JOUEUR values(seq_JOUEUR.nextval, 'TARLIER', 'Terence', to_date('04/02/1994','DD/MM/YYYY'), 'SoOn', 1);
 Insert INTO JOUEUR values(seq_JOUEUR.nextval, 'MONSCAVOIR', 'Brice', to_date('27/08/2001','DD/MM/YYYY'), 'FDGod', 1);
 Insert INTO JOUEUR values(seq_JOUEUR.nextval, 'CHOUCHAYAN', 'Patrick', to_date('23/09/1969','DD/MM/YYYY'), 'FiorI', 1);
+
+Insert INTO GERANT values(seq_gerant.nextval, 'Bardeau', '$iutinfo');
+Insert INTO GERANT values(seq_gerant.nextval, 'Bard', '$iutinfo');
+Insert INTO GERANT values(seq_gerant.nextval, 'Estlà', '$iutinfo');
+Insert INTO GERANT values(seq_gerant.nextval, 'Caffeine', '$iutinfo');
+
+Insert INTO TOURNOI values(SEQ_TOURNOI.nextval, 'RL pro lan series', 'International', to_date('21/10/2022','DD/MM/YYYY'), to_date('24/10/2022','DD/MM/YYYY'), to_date('25/10/2022','DD/MM/YYYY'), 1);
+Insert INTO TOURNOI values(SEQ_TOURNOI.nextval, 'OW contenders', 'International', to_date('21/12/2022','DD/MM/YYYY'), to_date('24/01/2022','DD/MM/YYYY'), to_date('25/02/2022','DD/MM/YYYY'), 2);
+Insert INTO TOURNOI values(SEQ_TOURNOI.nextval, 'Worlds LOL', 'International', to_date('21/04/2022','DD/MM/YYYY'), to_date('24/05/2022','DD/MM/YYYY'), to_date('25/05/2022','DD/MM/YYYY'), 3);
+Insert INTO TOURNOI values(SEQ_TOURNOI.nextval, 'LFL', 'National', to_date('21/06/2022','DD/MM/YYYY'), to_date('24/06/2022','DD/MM/YYYY'), to_date('25/06/2022','DD/MM/YYYY'), 3);
+
+Insert INTO ARBITRE values(SEQ_ARBITRE.nextval, 'Charles', '$iutinfo');
+Insert INTO ARBITRE values(SEQ_ARBITRE.nextval, 'Collina', '$iutinfo');
+Insert INTO ARBITRE values(SEQ_ARBITRE.nextval, 'Pierreluigi', '$iutinfo');
+
+
+--PENSES A COMMIT CONNARD
+ARBITRE
+ECURIE
+jeu
+EQUIPE
+JOUEUR
+GERANT
+TOURNOI
+
+
+-- TODO
+--
+--
+--
+--
