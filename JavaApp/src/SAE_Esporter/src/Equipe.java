@@ -57,9 +57,31 @@ public class Equipe {
 		}
     }
     
+    public static String[] getToutesLesEquipes() {
+    	Connection connex = ConnexionBase.getConnection();
+        try {
+        	Statement st = connex.createStatement();
+        	ResultSet rs = st.executeQuery("SELECT id_Equipe from Equipe");
+        	List<Equipe> equipes = new ArrayList<>();
+        	while(rs.next()) {
+        		equipes.add(new Equipe(rs.getInt(1)));
+        	}
+        	connex.close();
+        	
+        	String[] nomEquipes = new String[equipes.size()];
+        	for(int i = 0; i < equipes.size() ; i++) {
+        		nomEquipes[i] = equipes.get(i).toString();
+        	}
+        	return nomEquipes;
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			return null;
+		}
+    }
+    
     @Override
     public String toString() {
-    	return "[ "+this.getNomEquipe() + " ]";
+    	return this.getNomEquipe();
     }
 
 }
