@@ -34,20 +34,3 @@ Insert INTO TOURNOI values(SEQ_TOURNOI.nextval, 'LFL', 'National', to_date('21/0
 Insert INTO ARBITRE values(SEQ_ARBITRE.nextval, 'Charles', '$iutinfo');
 Insert INTO ARBITRE values(SEQ_ARBITRE.nextval, 'Collina', '$iutinfo');
 Insert INTO ARBITRE values(SEQ_ARBITRE.nextval, 'Pierreluigi', '$iutinfo');
-
-
---PENSES A COMMIT CONNARD
-ARBITRE
-ECURIE
-jeu
-EQUIPE
-JOUEUR
-GERANT
-TOURNOI
-
-
--- TODO
---
---
---
---

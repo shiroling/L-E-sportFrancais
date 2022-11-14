@@ -1,4 +1,3 @@
-
 CREATE TABLE Ecurie(
    Id_Ecurie INT,
    Nom_Ecurie VARCHAR(50) NOT NULL,
@@ -7,9 +6,7 @@ CREATE TABLE Ecurie(
    PRIMARY KEY(Id_Ecurie),
    UNIQUE(Nom_Ecurie)
 );
-
 CREATE SEQUENCE Seq_Ecurie START WITH 1 INCREMENT BY 1;
-
 
 CREATE TABLE Jeu(
    Id_Jeu INT,
@@ -17,9 +14,7 @@ CREATE TABLE Jeu(
    PRIMARY KEY(Id_Jeu),
    UNIQUE(Nom_jeu)
 );
-
 CREATE SEQUENCE Seq_Jeu START WITH 1 INCREMENT BY 1;
-
 
 CREATE TABLE Arbitre(
    Id_Arbitre INT,
@@ -27,9 +22,7 @@ CREATE TABLE Arbitre(
    mdp VARCHAR(50),
    PRIMARY KEY(Id_Arbitre)
 );
-
 CREATE SEQUENCE Seq_Arbitre START WITH 1 INCREMENT BY 1;
-
 
 CREATE TABLE Gerant(
    Id_Gerant INT,
@@ -37,7 +30,6 @@ CREATE TABLE Gerant(
    mdp VARCHAR(50) NOT NULL,
    PRIMARY KEY(Id_Gerant)
 );
-
 CREATE SEQUENCE Seq_Gerant START WITH 1 INCREMENT BY 1;
 
 CREATE TABLE Equipe(
@@ -50,9 +42,7 @@ CREATE TABLE Equipe(
    FOREIGN KEY(Id_Jeu) REFERENCES Jeu(Id_Jeu),
    FOREIGN KEY(Id_Ecurie) REFERENCES Ecurie(Id_Ecurie)
 );
-
 CREATE SEQUENCE Seq_Equipe START WITH 1 INCREMENT BY 1;
-
 
 CREATE TABLE Joueur(
    Id_Joueur INT,
@@ -64,10 +54,8 @@ CREATE TABLE Joueur(
    PRIMARY KEY(Id_Joueur),
    FOREIGN KEY(Id_Equipe) REFERENCES Equipe(Id_Equipe)
 );
-
 CREATE SEQUENCE Seq_Joueur START WITH 1 INCREMENT BY 1;
 
-Drop table Tournois;
 CREATE TABLE Tournoi(
    Id_Tournoi INT,
    nom VARCHAR(50) NOT NULL,
@@ -75,12 +63,13 @@ CREATE TABLE Tournoi(
    dateFinInsriptions DATE NOT NULL,
    dateDebutTournoi DATE NOT NULL,
    dateFinTournoi DATE NOT NULL,
+   Id_Jeu INT NOT NULL,
    Id_Gerant INT NOT NULL,
    PRIMARY KEY(Id_Tournoi),
    FOREIGN KEY(Id_Gerant) REFERENCES Gerant(Id_Gerant),
+   FOREIGN KEY(Id_Jeu) REFERENCES Jeu(Id_Jeu),
    CONSTRAINT CK_Tournoi_Portée CHECK (Portée in ('Local','National','International'))
 );
-
 CREATE SEQUENCE Seq_Tournoi START WITH 1 INCREMENT BY 1;
 
 CREATE TABLE Poule(
@@ -91,9 +80,7 @@ CREATE TABLE Poule(
    FOREIGN KEY(Id_Tournoi) REFERENCES Tournoi(Id_Tournoi),
    CONSTRAINT ck_finale_in CHECK (Finale in (0,1))
 );
-
 CREATE SEQUENCE Seq_Poule START WITH 1 INCREMENT BY 1;
-
 
 CREATE TABLE Rencontre(
    Id_Rencontre INT,
@@ -103,19 +90,7 @@ CREATE TABLE Rencontre(
    FOREIGN KEY(Id_Arbitre) REFERENCES Arbitre(Id_Arbitre),
    FOREIGN KEY(Id_Poule) REFERENCES Poule(Id_Poule)
 );
-
 CREATE SEQUENCE Seq_Rencontre START WITH 1 INCREMENT BY 1;
-
-CREATE TABLE Presenter(
-   Id_Tournoi INT,
-   Id_Jeu INT NOT NULL,
-   PRIMARY KEY(Id_Tournoi, Id_Jeu),
-   FOREIGN KEY(Id_Tournoi) REFERENCES Tournoi(Id_Tournoi),
-   FOREIGN KEY(Id_Jeu) REFERENCES Jeu(Id_Jeu)
-);
-
-CREATE SEQUENCE Seq_Presenter START WITH 1 INCREMENT BY 1;
-
 
 CREATE TABLE Inscrit(
    Id_Equipe INT NOT NULL,
@@ -126,7 +101,6 @@ CREATE TABLE Inscrit(
    FOREIGN KEY(Id_Tournoi) REFERENCES Tournoi(Id_Tournoi)
 );
 
-
 CREATE TABLE Composer(
    Id_Equipe INT,
    Id_Poule INT,
@@ -134,7 +108,6 @@ CREATE TABLE Composer(
    FOREIGN KEY(Id_Equipe) REFERENCES Equipe(Id_Equipe),
    FOREIGN KEY(Id_Poule) REFERENCES Poule(Id_Poule)
 );
-
 
 CREATE TABLE Jouer(
    Id_Equipe INT NOT NULL,
@@ -144,9 +117,6 @@ CREATE TABLE Jouer(
    FOREIGN KEY(Id_Equipe) REFERENCES Equipe(Id_Equipe),
    FOREIGN KEY(Id_Rencontre) REFERENCES Rencontre(Id_Rencontre),
    CONSTRAINT ck_aGagne_in CHECK (a_gagne in (0,1))
-
 );
 
-
 ALTER TABLE  Joueur ADD CONSTRAINT ck_card_equipe CHECK ((select MAX(COUNT(Id_Equipe)) FROM Joueur GROUP BY Id_Equipe) < 5);
-
