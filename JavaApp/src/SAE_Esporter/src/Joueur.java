@@ -3,7 +3,9 @@ package SAE_Esporter.src;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 
@@ -24,14 +26,15 @@ public class Joueur {
 
     @objid ("f084088c-c59c-4eab-add3-9d3b0ccc86b1")
     public String getNom() {
-    	Connection connex = ConnexionBase.getConnection();
+    	Connection connex = ConnexionBase.getConnectionBase();
         try {
         	Statement st = connex.createStatement();
         	ResultSet rs = st.executeQuery("Select Nom from Joueur where id_joueur = "+ this.getIdJoueur());
         	rs.next();
         	String result = rs.getString(1);
-        	connex.close();
-        	return result;
+        	rs.close();
+			st.close();
+			return result;
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 			return null;
@@ -40,14 +43,15 @@ public class Joueur {
 
     @objid ("b8a9de1f-f7ff-4a7d-a9a8-c77461ceea22")
     public String getPrenom() {
-    	Connection connex = ConnexionBase.getConnection();
+    	Connection connex = ConnexionBase.getConnectionBase();
         try {
         	Statement st = connex.createStatement();
         	ResultSet rs = st.executeQuery("Select Prenom from Joueur where id_joueur = "+ this.getIdJoueur());
         	rs.next();
         	String result = rs.getString(1);
-        	connex.close();
-        	return result;
+        	rs.close();
+			st.close();
+			return result;
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 			return null;
@@ -56,14 +60,15 @@ public class Joueur {
 
     @objid ("0e1058ee-d6f8-4108-94ab-331c9177b180")
     public Date getDateNaissance() {
-    	Connection connex = ConnexionBase.getConnection();
+    	Connection connex = ConnexionBase.getConnectionBase();
         try {
         	Statement st = connex.createStatement();
         	ResultSet rs = st.executeQuery("Select Date_de_naissance from Joueur where id_joueur = "+ this.getIdJoueur());
         	rs.next();
         	Date result = rs.getDate(1);
-        	connex.close();
-        	return result;
+        	rs.close();
+			st.close();
+			return result;
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 			return null;
@@ -72,19 +77,47 @@ public class Joueur {
 
     @objid ("6607ff67-ea71-46b6-92f9-f98d5b960622")
     public String getPseudo() {
-    	Connection connex = ConnexionBase.getConnection();
+    	Connection connex = ConnexionBase.getConnectionBase();
         try {
         	Statement st = connex.createStatement();
         	ResultSet rs = st.executeQuery("Select Pseudo from Joueur where id_Joueur = "+ this.getIdJoueur());
         	rs.next();
         	String result = rs.getString(1);
-        	connex.close();
-        	return result;
+        	rs.close();
+			st.close();
+			return result;
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 			return null;
 		}
     }
+    
+    public static List<Joueur> getToutsLesJoueurs() {
+		Connection connex = ConnexionBase.getConnectionBase();
+		try {
+			Statement st = connex.createStatement();
+			ResultSet rs = st.executeQuery("SELECT id_Joueur from Joueur");
+			List<Joueur> joueurs = new ArrayList<>();
+			while(rs.next()) {
+				joueurs.add(new Joueur(rs.getInt(1)));
+			}
+			rs.close();
+			st.close();
+			return joueurs;
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			return null;
+		}
+	}
+
+	public static String[] getStringJoueurs() {
+		List<Joueur> joueurs = Joueur.getToutsLesJoueurs();
+		String[] nomJoueurs = new String[joueurs.size()];
+		for(int i = 0; i < joueurs.size() ; i++) {
+			nomJoueurs[i] = joueurs.get(i).toString();
+		}
+		return nomJoueurs;
+	}
     
     @Override 
     public String toString() {

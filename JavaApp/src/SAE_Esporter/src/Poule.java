@@ -23,14 +23,15 @@ public class Poule {
 
     @objid ("84278edf-bbcc-4cad-ae60-307adf1fb14a")
     public boolean isPouleFinal() {
-    	Connection connex = ConnexionBase.getConnection();
+    	Connection connex = ConnexionBase.getConnectionBase();
         try {
         	Statement st = connex.createStatement();
         	ResultSet rs = st.executeQuery("Select Final from Poule where id_Poule = "+ this.getIdPoule());
         	rs.next();
         	boolean result = rs.getBoolean(1);
-        	connex.close();
-        	return result;
+        	rs.close();
+			st.close();
+			return result;
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 			return false;

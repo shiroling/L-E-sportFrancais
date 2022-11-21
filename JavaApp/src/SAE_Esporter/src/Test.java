@@ -9,7 +9,7 @@ public class Test {
 		Ecurie e = new Ecurie(1);
 		System.out.println(e.toString());
 		
-		String[] ecuries = Ecurie.getToutesLesEcuries();
+		String[] ecuries = Tournoi.getStringTournoisAVenir();
 		for(int i = 0; i < ecuries.length; i++) {
 			System.out.println( i + " : " + ecuries[i]);
 		}

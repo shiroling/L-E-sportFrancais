@@ -9,7 +9,9 @@ public class ConnexionBase {
 	private final static String mdp = Login.getMdp();
 	private final static String connectString = Login.getConnectString();
 	
-	public static Connection getConnection() {
+	private static Connection instance;
+	
+	private static Connection instanceBuilder() {
 		try {
 			DriverManager.registerDriver(new oracle.jdbc.driver.OracleDriver());
 		} catch (SQLException e) {
@@ -25,4 +27,13 @@ public class ConnexionBase {
 			return null;
 		}
 	}
+	
+	public static Connection getConnectionBase() {
+		if(ConnexionBase.instance == null) {
+			instance = ConnexionBase.instanceBuilder();
+		} 
+		return instance;
+	}
+	
+	
 }

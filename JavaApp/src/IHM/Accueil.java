@@ -21,15 +21,20 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
 
+import SAE_Esporter.src.AffichageGauche;
 import SAE_Esporter.src.Equipe;
 import SAE_Esporter.src.Jeu;
 import SAE_Esporter.src.Tournoi;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 
 public class Accueil {
 
 	private JFrame frame;
 	private JTextField textRecherche;
 	private JList listeGauche;
+	private JComboBox comboFilter;
+	private JComboBox comboOption;
 
 	/**
 	 * Launch the application.
@@ -57,6 +62,7 @@ public class Accueil {
 	/**
 	 * Initialize the contents of the frame.
 	 */
+	@SuppressWarnings("unchecked")
 	private void initialize() {
 		frame = new JFrame();
 		BorderLayout borderLayout = (BorderLayout) frame.getContentPane().getLayout();
@@ -104,88 +110,44 @@ public class Accueil {
 		flowLayout.setAlignment(FlowLayout.LEFT);
 		panel.add(panel_2, BorderLayout.NORTH);
 
-		JComboBox comboBox = new JComboBox();
-		comboBox.addActionListener(new ActionListener() {
+		comboOption = new JComboBox();
+		comboOption.addActionListener(new ActionListener() {
 			@SuppressWarnings("unchecked")
 			public void actionPerformed(ActionEvent e) {
-				/*switch (comboBox.getSelectedItem().toString()) {				
-					case "Tournois a suivre": 
-						break;
-					case "Tournois terminés":
-						break;
-					case "Equipes":
-						break;
-					case "Jeux":
-						break;
-					case "Matchs a venir":
-						break;
-					case "Matchs passés":
-						break;
-				default:
-					throw new IllegalArgumentException("Unexpected value: " + comboBox.getSelectedItem());
-				}*/
+				comboFilter.setModel(new DefaultComboBoxModel(AffichageGauche.getValeursFiltre(comboOption.getSelectedItem().toString())));
+				listeGauche.setModel(new AbstractListModel() {
 
-				switch (comboBox.getSelectedItem().toString()) {				
-				case "Tournois a suivre": 
-					listeGauche.setModel(new AbstractListModel() {
+					String[] values = AffichageGauche.getListValues(comboOption.getSelectedItem().toString(), comboFilter.getSelectedItem().toString());
+					public int getSize() {
+						return values.length;
+					}
+					public Object getElementAt(int index) {
+						return values[index];
+					}
+				});
+			}});
+		comboOption.setModel(new DefaultComboBoxModel(new String[] {"Tournois", "Equipes", "Jeux", "Matchs"}));
+		comboOption.setFont(new Font("Tahoma", Font.PLAIN, 17));
+		panel_2.add(comboOption);
+		
+		comboFilter = new JComboBox();
+		comboFilter.setModel(new DefaultComboBoxModel(AffichageGauche.getValeursFiltre(comboOption.getSelectedItem().toString())));
+		comboFilter.setFont(new Font("Tahoma", Font.PLAIN, 17));
+		comboFilter.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				listeGauche.setModel(new AbstractListModel() {
 
-						String[] values = Tournoi.getTousLesTournois();
-						public int getSize() {
-							return values.length;
-						}
-						public Object getElementAt(int index) {
-							return values[index];
-						}
-					});
-					break;
-				case "Tournois terminés":
-					listeGauche.setModel(new AbstractListModel() {
-
-						String[] values = Tournoi.getTousLesTournois();
-						public int getSize() {
-							return values.length;
-						}
-						public Object getElementAt(int index) {
-							return values[index];
-						}
-					});
-					break;
-				case "Equipes":
-					listeGauche.setModel(new AbstractListModel() {
-
-						String[] values = Equipe.getToutesLesEquipes();
-						public int getSize() {
-							return values.length;
-						}
-						public Object getElementAt(int index) {
-							return values[index];
-						}
-					});
-					break;
-				case "Jeux":
-					listeGauche.setModel(new AbstractListModel() {
-
-						String[] values = Jeu.getTousLesJeux();
-						public int getSize() {
-							return values.length;
-						}
-						public Object getElementAt(int index) {
-							return values[index];
-						}
-					});
-					break;
-				case "Matchs a venir":
-					break;
-				case "Matchs passés":
-					break;
-				default:
-					throw new IllegalArgumentException("Unexpected value: " + comboBox.getSelectedItem());
-				}
+					String[] values = AffichageGauche.getListValues(comboOption.getSelectedItem().toString(), comboFilter.getSelectedItem().toString());
+					public int getSize() {
+						return values.length;
+					}
+					public Object getElementAt(int index) {
+						return values[index];
+					}
+				});
 			}
 		});
-		comboBox.setModel(new DefaultComboBoxModel(new String[] {"Tournois a suivre", "Tournois terminés", "Equipes", "Jeux", "Matchs a venir", "Matchs passés"}));
-		comboBox.setFont(new Font("Tahoma", Font.PLAIN, 17));
-		panel_2.add(comboBox);
+		panel_2.add(comboFilter);
 
 		JScrollPane scrollPane = new JScrollPane();
 		panel.add(scrollPane, BorderLayout.CENTER);
@@ -194,7 +156,7 @@ public class Accueil {
 		listeGauche.setFont(new Font("Calibri", Font.BOLD, 17));
 		listeGauche.setModel(new AbstractListModel() {
 
-			String[] values = Tournoi.getTousLesTournois();
+			String[] values = Tournoi.getStringTournois();
 			public int getSize() {
 				return values.length;
 			}
@@ -233,6 +195,12 @@ public class Accueil {
 		JPanel panel_5 = new JPanel();
 		panel_5.setBackground(Color.WHITE);
 		scrollPane_1.setRowHeaderView(panel_5);
-	}
+		
+		JMenuBar menuBar = new JMenuBar();
+		frame.setJMenuBar(menuBar);
+		
+		JMenuItem menuItem = new JMenuItem("New menu item");
+		menuBar.add(menuItem);
+		}
 
-}
+	}
