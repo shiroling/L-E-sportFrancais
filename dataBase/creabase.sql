@@ -86,6 +86,7 @@ CREATE TABLE Rencontre(
    Id_Rencontre INT,
    Id_Arbitre INT NOT NULL,
    Id_Poule INT NOT NULL,
+   Date_Renconter DATE not null,
    PRIMARY KEY(Id_Rencontre),
    FOREIGN KEY(Id_Arbitre) REFERENCES Arbitre(Id_Arbitre),
    FOREIGN KEY(Id_Poule) REFERENCES Poule(Id_Poule)
