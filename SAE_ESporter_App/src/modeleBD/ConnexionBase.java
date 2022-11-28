@@ -1,8 +1,10 @@
-package SAE_Esporter.src;
+package modeleBD;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+
+import SAE_Esporter.src.Login;
 
 public class ConnexionBase {
 	private final static String login = Login.getLogin();

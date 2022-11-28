@@ -41,16 +41,10 @@ public class Ecurie {
 	}
 
 	protected void setMdpManager(String mdpManager) {
-		if(this.mdpManager == null) {
-			this.init();
-		}
 		this.mdpManager = mdpManager;
 	}
 
 	protected void setNomManager(String nomManager) {
-		if(this.nomManager == null) {
-			this.init();
-		}
 		this.nomManager = nomManager;
 	}
 

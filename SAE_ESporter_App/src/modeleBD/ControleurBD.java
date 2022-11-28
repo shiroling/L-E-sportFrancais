@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import SAE_Esporter.src.ConnexionBase;
 import SAE_Esporter.src.Portee;
 
 public class ControleurBD {
@@ -21,10 +20,10 @@ public class ControleurBD {
 		try {
 			Statement st = ConnexionBase.getConnectionBase().createStatement();
 			ResultSet rs = st.executeQuery("Select Nom_Ecurie, Nom_Manager, mdp_Manager from Ecurie where Id_Ecurie = "+ e.getId());
-
-			e.setNom(rs.getString(1));
-			e.setMdpManager(rs.getString(2));
-			e.setNomManager(rs.getString(3));
+			rs.next();
+			e.setNom(rs.getString("Nom_Ecurie"));
+			e.setNomManager(rs.getString("Nom_Manager"));
+			e.setMdpManager(rs.getString("mdp_Manager"));
 			
 			st.close();
 		} catch (Exception err) {
@@ -36,7 +35,7 @@ public class ControleurBD {
 		try {
 			Statement st = ConnexionBase.getConnectionBase().createStatement();
 			ResultSet rs = st.executeQuery("Select nom_Equipe, Id_Jeu, Id_Ecurie from Equipe where Id_Equipe = "+ e.getId());
-
+			rs.next();
 			e.setNom(rs.getString(1));
 			e.setIdJeu(rs.getInt(2));
 			e.setIdEcurie(rs.getInt(3));
@@ -50,13 +49,13 @@ public class ControleurBD {
 	public static void initJoueur(Joueur j) {
 		try {
 			Statement st = ConnexionBase.getConnectionBase().createStatement();
-			ResultSet rs = st.executeQuery("Select nom, prenom, date_de_naissance, pseudo, id_equipe from Equipe where Id_Equipe = "+ j.getId());
-
-			j.setNom(rs.getString(0));
-			j.setPrenom(rs.getString(1));
-			j.setNaissance(rs.getDate(2));
-			j.setPseudo(rs.getString(3));
-			j.setIdEquipe(rs.getInt(4));
+			ResultSet rs = st.executeQuery("Select nom, prenom, date_de_naissance, pseudo, id_equipe from Joueur where id_joueur = "+ j.getId());
+			rs.next();
+			j.setNom(rs.getString(1));
+			j.setPrenom(rs.getString(2));
+			j.setNaissance(rs.getDate(3));
+			j.setPseudo(rs.getString(4));
+			j.setIdEquipe(rs.getInt(5));
 
 			
 			st.close();
@@ -68,9 +67,9 @@ public class ControleurBD {
 	public static void initJeu(Jeu j) {
 		try {
 			Statement st = ConnexionBase.getConnectionBase().createStatement();
-			ResultSet rs = st.executeQuery("Select nom_jeu from Equipe where Id_Equipe = "+ j.getId());
-
-			j.setNom(rs.getString(0));
+			ResultSet rs = st.executeQuery("Select nom_jeu from Jeu where Id_Jeu = "+ j.getId());
+			rs.next();
+			j.setNom(rs.getString(1));
 			
 			st.close();
 		} catch (Exception err) {
@@ -99,17 +98,16 @@ public class ControleurBD {
 	public static void initTournoi(Tournoi t) {
 		try {
 			Statement st = ConnexionBase.getConnectionBase().createStatement();
-			ResultSet rs = st.executeQuery("Select 	NOM, PORTÉE, DATEFININSRIPTIONS, DATEDEBUTTOURNOI, DATEFINTOURNOI, ID_JEU, ID_GERANT "
-					+ "from poule where Id_Equipe = "+ t.getId());
+			ResultSet rs = st.executeQuery("Select NOM, PORTÉE, DATEFININSRIPTIONS, DATEDEBUTTOURNOI, DATEFINTOURNOI, ID_JEU, ID_GERANT from tournoi where Id_tournoi = "+ t.getId());
+			rs.next();
+			t.setNom(rs.getString(1));
+			t.setDateFinInscriptions(rs.getDate(3));
+			t.setDateDebut(rs.getDate(4));
+			t.setDateFin(rs.getDate(5));
+			t.setIdJeu(rs.getInt(6));
+			t.setIdGerant(rs.getInt(7));
 			
-			t.setNom(rs.getString(0));
-			t.setDateFinInscriptions(rs.getDate(2));
-			t.setDateDebut(rs.getDate(3));
-			t.setDateFin(rs.getDate(4));
-			t.setIdJeu(rs.getInt(5));
-			t.setIdGerant(rs.getInt(6));
-			
-			String s = rs.getString(1);
+			String s = rs.getString(2);
 			switch (s) {
 				case "Local": {
 					t.setPortee(Portee.LOCAL);
@@ -121,6 +119,7 @@ public class ControleurBD {
 				}
 				case "National": {
 					t.setPortee(Portee.NATIONAL);
+					break;
 				}
 				default:
 					throw new IllegalArgumentException("Unexpected value: " + s);
@@ -146,7 +145,23 @@ public class ControleurBD {
 		}
 	}
 
-		
+	public static List<Poule> getListePoules() {
+		try {
+			Statement st = ConnexionBase.getConnectionBase().createStatement();
+			ResultSet rs = st.executeQuery("Select id_Poule from Poule");
+	
+			List<Poule> l = new ArrayList<>();
+			while(rs.next()) {
+				l.add(new Poule(rs.getInt(1)));
+			}
+			st.close();
+			return l;
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			return null;
+		}
+	}
+	
 	
 	public static List<Joueur> getListeJoueurs() {
 		try {
@@ -218,11 +233,28 @@ public class ControleurBD {
 	public static List<Rencontre> getListeRencontre() {
 		try {
 			Statement st = ConnexionBase.getConnectionBase().createStatement();
-			ResultSet rs = st.executeQuery("Select id_tournoi from tournoi");
+			ResultSet rs = st.executeQuery("Select id_rencontre from rencontre");
 	
 			List<Rencontre> t = new ArrayList<>();
 			while(rs.next()) {
 				t.add(new Rencontre(rs.getInt(1)));
+			}
+			st.close();
+			return t;
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			return null;
+		}
+	}
+	
+	public static List<Ecurie> getListeEcurie() {
+		try {
+			Statement st = ConnexionBase.getConnectionBase().createStatement();
+			ResultSet rs = st.executeQuery("Select id_ecurie from ecurie");
+	
+			List<Ecurie> t = new ArrayList<>();
+			while(rs.next()) {
+				t.add(new Ecurie(rs.getInt(1)));
 			}
 			st.close();
 			return t;
@@ -426,10 +458,10 @@ public class ControleurBD {
 		Connection connex = ConnexionBase.getConnectionBase();
 		try {
 			Statement st = connex.createStatement();
-			ResultSet rs = st.executeQuery("SELECT id_tournoi FROM Tournoi where DateDebutTournoi > Date()");
+			ResultSet rs = st.executeQuery("SELECT id_tournoi FROM Tournoi where DateDebutTournoi > CURRENT_DATE");
 			List<Tournoi> tournois = new ArrayList<>();
 			while(rs.next()) {
-				tournois.add(new Tournoi(rs.getInt(1)));
+				tournois.add(new Tournoi(rs.getInt("id_tournoi")));
 			}
 			rs.close();
 			st.close();

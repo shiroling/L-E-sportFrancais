@@ -6,10 +6,6 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import SAE_Esporter.src.ConnexionBase;
-
-@SuppressWarnings("unused")
-
 public class Equipe {
 	private final int id;
 	private String nom;

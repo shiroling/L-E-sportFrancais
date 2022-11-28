@@ -1,15 +1,16 @@
 Drop table Ecurie;
 Drop table Jeu;
-Drop table Arbitre;
-Drop table Gerant;
 Drop table Equipe;
 Drop table Joueur;
 Drop table Tournoi;
 Drop table Poule;
 Drop table Rencontre;
+Drop table Jouer;
+
+Drop table Arbitre;
+Drop table Gerant;
 Drop table Inscrit;
 Drop table Composer;
-Drop table Jouer;
 
 Drop SEQUENCE Seq_Ecurie;
 Drop SEQUENCE Seq_Jeu;

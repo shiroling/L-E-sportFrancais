@@ -80,7 +80,7 @@ public class Rencontre {
 
 	@Override
 	public String toString() {
-		return " [ " + this.getEquipes().get(0).toString() + " / " + this.getEquipes().get(1).toString() + " ] ";
+		return " [ " + this.getEquipes().get(0) + " / " + this.getEquipes().get(1) + " ] ";
 	}
 
 }

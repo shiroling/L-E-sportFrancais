@@ -6,7 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import SAE_Esporter.src.ConnexionBase;
+import modeleBD.ConnexionBase;
 
 public class ConnexionUtilisateur {
 	
