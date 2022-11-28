@@ -25,7 +25,7 @@ public class Test {
 		
 		
 
-		for(Tournoi t : l) {
+		for(Rencontre t : l) {
 			System.out.println(t);
 		}
 	}
