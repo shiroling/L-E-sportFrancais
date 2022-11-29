@@ -161,8 +161,7 @@ public class ControleurBD {
 			return null;
 		}
 	}
-	
-	
+		
 	public static List<Joueur> getListeJoueurs() {
 		try {
 			Statement st = ConnexionBase.getConnectionBase().createStatement();
@@ -471,22 +470,6 @@ public class ControleurBD {
 			return null;
 		}
 	}
-
-	public static void insererTournoi(String nomTounoi, String porteeTournoi, String dateFinInscription, String dateDebutTournoi, String dateFinTournoi, int idJeu) {
-		Connection connex = ConnexionBase.getConnectionBase();
-		try {
-			PreparedStatement st = connex.prepareStatement("Insert into Tournoi values (Seq_Tournoi.nextVal, ?,?,TO_DATE(?, 'DD/MM/YYYY'),TO_DATE(?, 'DD/MM/YYYY'),TO_DATE(?, 'DD/MM/YYYY'),?, 1)");
-			st.setString(1, nomTounoi);
-			st.setString(2, porteeTournoi);
-			st.setString(3, dateFinInscription);
-			st.setString(4, dateDebutTournoi);
-			st.setString(5, dateFinTournoi);
-			st.setInt(6, idJeu);
-			st.executeUpdate();
-		} catch (Exception e) {
-			System.out.println(e.getMessage());
-		}
-	}
 	
 	public static Equipe getVainqueurRencontre( int idRencontre) {
 		try {
@@ -535,11 +518,22 @@ public class ControleurBD {
 		}
 	}
 	
-	
-	
-	
-	
-	
+	public static void insererTournoi(String nomTounoi, String porteeTournoi, String dateFinInscription, String dateDebutTournoi, String dateFinTournoi, int idJeu) {
+		Connection connex = ConnexionBase.getConnectionBase();
+		try {
+			PreparedStatement st = connex.prepareStatement("Insert into Tournoi values (Seq_Tournoi.nextVal, ?,?,TO_DATE(?, 'DD/MM/YYYY'),TO_DATE(?, 'DD/MM/YYYY'),TO_DATE(?, 'DD/MM/YYYY'),?, 1)");
+			st.setString(1, nomTounoi);
+			st.setString(2, porteeTournoi);
+			st.setString(3, dateFinInscription);
+			st.setString(4, dateDebutTournoi);
+			st.setString(5, dateFinTournoi);
+			st.setInt(6, idJeu);
+			st.executeUpdate();
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+	}
+
 	
 	
 	
