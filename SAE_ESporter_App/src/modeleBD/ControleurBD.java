@@ -501,6 +501,36 @@ public class ControleurBD {
 		}
 	}
 	
+	public static String getNomJeu(int idJeu) {
+		try {
+			Statement st = ConnexionBase.getConnectionBase().createStatement();
+			ResultSet rs = st.executeQuery("Select nom_jeu from Jeu where id_Jeu = "+ idJeu);
+			rs.next();
+			String var = rs.getString(1);
+			rs.close();
+			st.close();
+			return var;
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			return null;
+		}
+	}
+	
+	public static int getIdJeu(int nomJeu) {
+		try {
+			Statement st = ConnexionBase.getConnectionBase().createStatement();
+			ResultSet rs = st.executeQuery("Select id_jeu from Jeu where nom_jeu = "+ nomJeu);
+			rs.next();
+			int var = rs.getInt(1);
+			rs.close();
+			st.close();
+			return var;
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			return null;
+		}
+	}
+	
 	public static boolean estResultatRenseigne(int idRencontre) {
 		try {
 			Statement st = ConnexionBase.getConnectionBase().createStatement();
@@ -508,9 +538,26 @@ public class ControleurBD {
 			boolean check = rs.next();
 			st.close();
 			if (check) {
-				return false;
-			} else {
 				return true;
+			} else {
+				return false;
+			}
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			return false;
+		}
+	}
+	
+	public static boolean existeNomTournoi(String nomTournoi) {
+		try {
+			Statement st = ConnexionBase.getConnectionBase().createStatement();
+			ResultSet rs = st.executeQuery("Select id_tournoi from Tournoi where nom = '"+ nomTournoi + "'");
+			boolean check = rs.next();
+			st.close();
+			if (check) {
+				return true;
+			} else {
+				return false;
 			}
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
@@ -534,14 +581,6 @@ public class ControleurBD {
 		}
 	}
 
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
 	
 }
