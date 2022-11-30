@@ -61,6 +61,7 @@ public class AccueilV2 {
 	}
 
 	/**
+	 * 
 	 * Create the application.
 	 */
 	public AccueilV2() {
