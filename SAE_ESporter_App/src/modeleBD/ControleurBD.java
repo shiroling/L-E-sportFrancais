@@ -5,7 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.Date;
+import java.sql.Date;
 import java.util.List;
 
 import SAE_Esporter.src.Portee;
@@ -501,6 +501,23 @@ public class ControleurBD {
 		}
 	}
 	
+	public static boolean existeNomTournoi(String nomTournoi) {
+        try {
+            Statement st = ConnexionBase.getConnectionBase().createStatement();
+            ResultSet rs = st.executeQuery("Select id_tournoi from Tournoi where nom = '" + nomTournoi + "'");
+            boolean check = rs.next();
+            st.close();
+            if (check) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return false;
+        }
+    }
+	
 	public static boolean estResultatRenseigne(int idRencontre) {
 		try {
 			Statement st = ConnexionBase.getConnectionBase().createStatement();
@@ -508,9 +525,9 @@ public class ControleurBD {
 			boolean check = rs.next();
 			st.close();
 			if (check) {
-				return false;
-			} else {
 				return true;
+			} else {
+				return false;
 			}
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
@@ -518,21 +535,25 @@ public class ControleurBD {
 		}
 	}
 	
-	public static void insererTournoi(String nomTounoi, String porteeTournoi, String dateFinInscription, String dateDebutTournoi, String dateFinTournoi, int idJeu) {
+	
+	
+	public static void insererTournoi(String nomTounoi, Portee porteeTournoi, Date dateFinInscription, Date dateDebutTournoi, Date dateFinInscription2, int idJeu) {
 		Connection connex = ConnexionBase.getConnectionBase();
 		try {
-			PreparedStatement st = connex.prepareStatement("Insert into Tournoi values (Seq_Tournoi.nextVal, ?,?,TO_DATE(?, 'DD/MM/YYYY'),TO_DATE(?, 'DD/MM/YYYY'),TO_DATE(?, 'DD/MM/YYYY'),?, 1)");
+			PreparedStatement st = connex.prepareStatement("Insert into Tournoi values (Seq_Tournoi.nextVal, ?, ?, TO_DATE(?, 'DD/MM/YYYY'),TO_DATE(?, 'DD/MM/YYYY'),TO_DATE(?, 'DD/MM/YYYY'),?, 1)");
 			st.setString(1, nomTounoi);
-			st.setString(2, porteeTournoi);
-			st.setString(3, dateFinInscription);
-			st.setString(4, dateDebutTournoi);
-			st.setString(5, dateFinTournoi);
+			st.setString(2, porteeTournoi.getName());
+			st.setDate(3, dateFinInscription);
+			st.setDate(4, dateDebutTournoi);
+			st.setDate(5, dateFinInscription2);
 			st.setInt(6, idJeu);
 			st.executeUpdate();
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
 	}
+	
+	
 
 	
 	

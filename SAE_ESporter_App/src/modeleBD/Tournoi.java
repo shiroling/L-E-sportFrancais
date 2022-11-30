@@ -1,6 +1,8 @@
 package modeleBD;
 
-import java.util.Date;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.sql.Date;
 import java.util.List;
 
 import SAE_Esporter.src.Portee;
@@ -150,13 +152,37 @@ public class Tournoi {
 		return ControleurBD.getTournoisAVenir();
 	}
 	
-	public static void insererTournoi(String nomTounoi, String porteeTournoi, String dateFinInscription, String dateDebutTournoi, String dateFinTournoi, int idJeu) {
-		ControleurBD.insererTournoi(nomTounoi, porteeTournoi, dateFinInscription, dateDebutTournoi, dateFinTournoi, idJeu);
+	public static void insererTournoi(String nomTounoi, Portee porteeTournoi, Date dateFinInscription, Date dateDebutTournoi, Date dateFinTournoi, int idJeu) throws IllegalArgumentException {
+		if(!isValidNom(nomTounoi)) {
+			throw new IllegalArgumentException("Le nom donné au tournoi est déjà pris");
+		}
+		
+		if(!isValidDates(dateFinInscription, dateDebutTournoi, dateFinTournoi)) {
+			throw new IllegalArgumentException("Les dates données ne corélent pas");
+		}		
+		ControleurBD.insererTournoi(nomTounoi, porteeTournoi, dateFinInscription, dateDebutTournoi, dateFinInscription, idJeu);
 	}
 	
-	public static void insérerTournoisMultigaming(String nomTounoi, String porteeTournoi, String dateFinInscription, String dateDebutTournoi, String dateFinTournoi, int idJeu[]) {
+	public static void insérerTournoisMultigaming(String nomTounoi, Portee porteeTournoi, Date dateFinInscription, Date dateDebutTournoi, Date dateFinTournoi, int idJeu[]) {
 		// TODO Implémenter cette méthode SVP
 	}
+	
+	public static boolean isValidToInsert(String nomTounoi, Portee porteeTournoi, Date dateFinInscription, Date dateDebutTournoi, Date dateFinTournoi, int idJeu) {
+		return isValidNom(nomTounoi) && isValidDates(dateFinInscription, dateDebutTournoi, dateFinTournoi);
+	}
+
+
+	private static boolean isValidDates(Date dateFinInscription, Date dateDebutTournoi, Date dateFinTournoi) {
+		return dateFinInscription.before(dateDebutTournoi) && dateDebutTournoi.before(dateFinTournoi);
+	}
+
+	private static boolean isValidNom(String nomTounoi) {
+		return !ControleurBD.existeNomTournoi(nomTounoi);
+	}
+	
+	
+
+	
 
 	
 
