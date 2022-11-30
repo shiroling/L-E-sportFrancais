@@ -516,7 +516,7 @@ public class ControleurBD {
 		}
 	}
 	
-	public static int getIdJeu(int nomJeu) {
+	public static int getIdJeu(String nomJeu) {
 		try {
 			Statement st = ConnexionBase.getConnectionBase().createStatement();
 			ResultSet rs = st.executeQuery("Select id_jeu from Jeu where nom_jeu = "+ nomJeu);
