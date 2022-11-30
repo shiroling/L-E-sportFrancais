@@ -1,2 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<qualifiedTypeNameHistroy/>
+<qualifiedTypeNameHistroy>
+    <fullyQualifiedTypeName name="modeleBD.Login"/>
+    <fullyQualifiedTypeName name="SAE_Esporter.src.Mois"/>
+    <fullyQualifiedTypeName name="java.awt.event.ActionListener"/>
+    <fullyQualifiedTypeName name="IHM.formCreerTournoi"/>
+    <fullyQualifiedTypeName name="javax.swing.JLabel"/>
+    <fullyQualifiedTypeName name="java.awt.BorderLayout"/>
+    <fullyQualifiedTypeName name="Controller.ControleurFromCreerTournoi"/>
+    <fullyQualifiedTypeName name="java.util.ArrayList"/>
+    <fullyQualifiedTypeName name="modeleBD.ControleurBD"/>
+    <fullyQualifiedTypeName name="IHM.FormCreerTournoi"/>
+    <fullyQualifiedTypeName name="javax.swing.JComboBox"/>
+</qualifiedTypeNameHistroy>

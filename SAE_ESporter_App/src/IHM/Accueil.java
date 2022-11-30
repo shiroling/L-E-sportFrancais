@@ -8,6 +8,7 @@ import java.awt.GridLayout;
 import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 import javax.swing.AbstractListModel;
 import javax.swing.DefaultComboBoxModel;
@@ -16,18 +17,16 @@ import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
 
 import SAE_Esporter.src.AffichageGauche;
-import modeleBD.Equipe;
-import modeleBD.Jeu;
+import modeleBD.ControleurBD;
 import modeleBD.Tournoi;
-
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
 
 public class Accueil {
 
@@ -156,8 +155,8 @@ public class Accueil {
 		listeGauche = new JList();
 		listeGauche.setFont(new Font("Calibri", Font.BOLD, 17));
 		listeGauche.setModel(new AbstractListModel() {
-
-			String[] values = Tournoi.getStringTournois();
+			List<Tournoi> tournois = ControleurBD.getListeTournois();
+			String[] values = Tournoi.toStrings(tournois);
 			public int getSize() {
 				return values.length;
 			}
