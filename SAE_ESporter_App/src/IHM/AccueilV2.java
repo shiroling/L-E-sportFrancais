@@ -21,6 +21,9 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.LineBorder;
+
+import Controller.ControleurAccueil;
+
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -31,7 +34,8 @@ public class AccueilV2 {
 
 	private JFrame frame;
 	private JPanel panel_side;
-
+	private JPanel panel_main;
+	private ControleurAccueil controleur;
 	/**
 	 * 
 	 * Launch the application.
@@ -60,6 +64,7 @@ public class AccueilV2 {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
+		controleur = new ControleurAccueil(this);
 		frame = new JFrame();
 		BorderLayout borderLayout = (BorderLayout) frame.getContentPane().getLayout();
 		borderLayout.setVgap(10);
@@ -121,28 +126,33 @@ public class AccueilV2 {
 
 		JButton btnTournois = new JButton("Tournois");
 		btnTournois.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		btnTournois.addActionListener(controleur);
 		panel_16.add(btnTournois);
 
 		JButton btnMatch = new JButton("Match");
 		btnMatch.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		btnMatch.addActionListener(controleur);
 		panel_16.add(btnMatch);
 
 		JButton btnJeu = new JButton("Jeu");
 		btnJeu.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		btnJeu.addActionListener(controleur);
 		panel_16.add(btnJeu);
 
 		JButton btnEquipe = new JButton("Equipe");
 		btnEquipe.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		btnEquipe.addActionListener(controleur);
 		panel_16.add(btnEquipe);
 
 		JButton btnEcurie = new JButton("Ecurie");
 		btnEcurie.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		btnEcurie.addActionListener(controleur);
 		panel_16.add(btnEcurie);
 
 		JScrollPane scrollPane = new JScrollPane();
 		frame.getContentPane().add(scrollPane, BorderLayout.CENTER);
 
-		JPanel panel_main = new JPanel();
+		panel_main = new JPanel();
 		scrollPane.setViewportView(panel_main);
 		panel_main.setLayout(new GridLayout(6, 3, 10, 10));
 
@@ -248,15 +258,13 @@ public class AccueilV2 {
 				panel_main.updateUI();
 			}
 		});
-		btnEcurie.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				for (Component comp : panel_side.getComponents()) {
-					panel_side.removeAll();
-				}
-				panel_side.updateUI();
-			}
-		});
 		frame.setMinimumSize(new Dimension(800, 600));
 	}
 
+	public void viderCartes() {
+		for (Component comp : panel_main.getComponents()) {
+			panel_main.removeAll();
+		}
+		panel_side.updateUI();
+	}
 }

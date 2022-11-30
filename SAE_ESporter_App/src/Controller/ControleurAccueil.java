@@ -7,17 +7,18 @@ import javax.swing.JButton;
 
 import Controller.ConnexionUtilisateur.ConnexionState;
 import IHM.Accueil;
+import IHM.AccueilV2;
 import IHM.CreerTournoi;
 import IHM.Test;
 
-public class ControleurAccueil implements ActionListener{
+public class ControleurAccueil implements ActionListener {
 
 	private Etat state;
-	private Test vueAccueil;
+	private AccueilV2 vueAccueil;
 	private JButton btn;
 	private ConnexionUtilisateur.ConnexionState connexionState;
 
-	public ControleurAccueil(Test vueAccueil) {
+	public ControleurAccueil(AccueilV2 vueAccueil) {
 		this.state = Etat.ACCUEIL_SANS_VOLET;
 		this.vueAccueil = vueAccueil;
 		connexionState = ConnexionState.NON_CONNECTE;
@@ -29,19 +30,33 @@ public class ControleurAccueil implements ActionListener{
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		System.out.println(state);
 		btn = (JButton) e.getSource();
+		System.out.println(btn.getText());
+		vueAccueil.viderCartes();
 		switch (this.state) {
-		case ACCUEIL_SANS_VOLET :
+		case ACCUEIL_SANS_VOLET:
 			switch (btn.getText()) {
-			case "Creer Tournoi" :
+			case "Creer Tournoi":
 				procedureCreerTournoi();
 				break;
+			case "Tournois":
+				vueAccueil.viderCartes();
+				break;
+			case "Match":
+				break;
+			case "Jeu":
+				break;
+			case"Equipe":
+				break;
+			case"Ecurie":
+				break;
 			}
-		case ACCUEIL_AVEC_VOLET :
+		case ACCUEIL_AVEC_VOLET:
 			break;
-		case CONNEXION :
+		case CONNEXION:
 			break;
-		case FORMULAIRE :
+		case FORMULAIRE:
 			break;
 		}
 
@@ -52,12 +67,12 @@ public class ControleurAccueil implements ActionListener{
 	}
 
 	private void procedureCreerTournoi() {
-		if(connexionState != ConnexionUtilisateur.ConnexionState.GESTIONNAIRE) {
+		if (connexionState != ConnexionUtilisateur.ConnexionState.GESTIONNAIRE) {
 			this.state = Etat.CONNEXION;
 			IHM.Connexion fenetreConnnexion = new IHM.Connexion(this, ConnexionState.GESTIONNAIRE);
 			this.state = Etat.ACCUEIL_SANS_VOLET;
-		} 
-		if(connexionState == ConnexionUtilisateur.ConnexionState.GESTIONNAIRE) {
+		}
+		if (connexionState == ConnexionUtilisateur.ConnexionState.GESTIONNAIRE) {
 			this.state = Etat.FORMULAIRE;
 			CreerTournoi formTournoi = new CreerTournoi();
 			this.state = Etat.ACCUEIL_SANS_VOLET;
