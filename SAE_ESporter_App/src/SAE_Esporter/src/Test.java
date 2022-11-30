@@ -10,7 +10,7 @@ import modeleBD.Tournoi;
 
 public class Test {
 
-	@SuppressWarnings({ "deprecation", "unused" })
+	@SuppressWarnings({"unused" })
 	public static void main(String[] args) {
 		
 		//List<Tournoi>  l = ControleurBD.getListeTournois();
@@ -25,7 +25,8 @@ public class Test {
 		Date dfi = java.sql.Date.valueOf(LocalDate.of(1914, 6, 28));
 		Date ddt = java.sql.Date.valueOf(LocalDate.of(1914, 7, 28));
 		Date dft = java.sql.Date.valueOf(LocalDate.of(1918, 7, 28));
-		Tournoi.insererTournoi("bébou", Portee.NATIONAL, dfi, ddt, dft, 1);
+		int i[] = {(1), (2)};  
+		Tournoi.insererTournoisMultigaming("bébouMulti", Portee.NATIONAL, dfi, ddt, dft, i, 3);
 		
 		
 	}

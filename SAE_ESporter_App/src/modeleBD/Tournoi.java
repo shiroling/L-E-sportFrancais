@@ -1,7 +1,5 @@
 package modeleBD;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.sql.Date;
 import java.util.List;
 
@@ -152,27 +150,30 @@ public class Tournoi {
 		return ControleurBD.getTournoisAVenir();
 	}
 	
-	public static void insererTournoi(String nomTounoi, Portee porteeTournoi, Date dateFinInscription, Date dateDebutTournoi, Date dateFinTournoi, int idJeu) throws IllegalArgumentException {
+	public static void insererTournoi(String nomTounoi, Portee porteeTournoi, Date dateFinInscription, Date dateDebutTournoi, Date dateFinTournoi, int idJeu, int idGerant) throws IllegalArgumentException {
 		if(!isValidNom(nomTounoi)) {
 			throw new IllegalArgumentException("Le nom donné au tournoi est déjà pris");
 		}
 		
 		if(!isValidDates(dateFinInscription, dateDebutTournoi, dateFinTournoi)) {
 			throw new IllegalArgumentException("Les dates données ne corélent pas");
-		}		
-		ControleurBD.insererTournoi(nomTounoi, porteeTournoi, dateFinInscription, dateDebutTournoi, dateFinInscription, idJeu);
+		}	
+		if(!isvalidGerant(idGerant)) {
+			throw new IllegalArgumentException("Le gérant n'existe pas");
+		}
+		
+		ControleurBD.insererTournoi(nomTounoi, porteeTournoi, dateFinInscription, dateDebutTournoi, dateFinInscription, idJeu, idGerant);
 	}
 	
-	public static void insererTournoisMultigaming(String nomTournoi, String porteeTournoi, String dateFinInscription, String dateDebutTournoi, String dateFinTournoi, int idJeu[]) {
+	public static boolean isvalidGerant(int i ) {
+		return ControleurBD.existeGerant(i);
+	}
+	
+	public static void insererTournoisMultigaming(String nomTournoi, Portee porteeTournoi, Date dateFinInscription, Date dateDebutTournoi, Date dateFinTournoi, int idJeu[], int idGerant) {
 		for (int i : idJeu) {
-			ControleurBD.insererTournoi(nomTournoi + " - " + ControleurBD.getNomJeu(i), porteeTournoi, dateFinInscription, dateDebutTournoi, dateFinTournoi, i);
+			insererTournoi(nomTournoi + " - " + ControleurBD.getNomJeu(i), porteeTournoi, dateFinInscription, dateDebutTournoi, dateFinTournoi, i, idGerant);
 		}
 	}
-	
-	public static boolean isValidToInsert(String nomTounoi, Portee porteeTournoi, Date dateFinInscription, Date dateDebutTournoi, Date dateFinTournoi, int idJeu) {
-		return isValidNom(nomTounoi) && isValidDates(dateFinInscription, dateDebutTournoi, dateFinTournoi);
-	}
-
 
 	private static boolean isValidDates(Date dateFinInscription, Date dateDebutTournoi, Date dateFinTournoi) {
 		return dateFinInscription.before(dateDebutTournoi) && dateDebutTournoi.before(dateFinTournoi);

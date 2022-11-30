@@ -45,5 +45,7 @@ public class Jeu {
 	public String toString() {
 		return this.getNom();
 	}
+	
+	
 
 }
