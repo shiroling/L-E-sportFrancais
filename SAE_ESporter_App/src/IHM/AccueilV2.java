@@ -317,7 +317,7 @@ public class AccueilV2 {
 	public void ajouterCartesMatch(List<Rencontre> rencontres) {
 		CarteRencontre ct;
 		for(Rencontre rencontre : rencontres) {
-			ct = new CarteRencontre(rencontre.getEquipes().get(0), rencontre.getEquipes().get(1),rencontre.getDate(), rencontre.getVainqueur());
+			ct = new CarteRencontre(rencontre.getEquipes().get(0).getNom(), rencontre.getEquipes().get(1).getNom(), rencontre.getDate().toString(), rencontre.getVainqueur().getNom());
 			ct.setName("CarteRencontre");
 			ct.setBorder(new LineBorder(new Color(0, 0, 0)));
 			ct.addMouseListener(null);
@@ -343,7 +343,8 @@ public class AccueilV2 {
 	public void ajouterCartesEquipe(List<Equipe> equipes) {
 		CarteEquipe ct;
 		for(Equipe equipe : equipes) {
-			ct = new CarteEquipe(equipe.getNom(), equipe.getManager(), equipe.getEcurie());
+			Ecurie e = equipe.getEcurie();
+			ct = new CarteEquipe(equipe.getNom(), e.getNomManager(), e.getNom());
 			ct.setName("CarteJeu");
 			ct.setBorder(new LineBorder(new Color(0, 0, 0)));
 			ct.addMouseListener(null);

@@ -141,10 +141,11 @@ public class ControleurBD {
 		try {
 			Statement st = ConnexionBase.getConnectionBase().createStatement();
 			ResultSet rs = st
-					.executeQuery("Select 	id_arbitre, id_poule from rencontre where id_rencontre = " + r.getId());
+					.executeQuery("Select id_arbitre, id_poule, date_rencontre from rencontre where id_rencontre = " + r.getId());
 
 			r.setIdArbitre(rs.getInt(0));
 			r.setIdPoule(rs.getInt(1));
+			r.setDate(rs.getDate(2));
 
 			st.close();
 		} catch (Exception err) {
@@ -606,9 +607,7 @@ public class ControleurBD {
 			st.executeUpdate();
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
-			return false;
 		}
-		return false;
 	}
 
 	public static boolean isGestionnaire(String id, String mdp) {

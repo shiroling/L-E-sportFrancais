@@ -1,13 +1,13 @@
 package modeleBD;
 
-import java.awt.desktop.AboutEvent;
+import java.sql.Date;
 import java.util.List;
-import java.util.random.RandomGenerator.ArbitrarilyJumpableGenerator;
 
 public class Rencontre {
 	private final int id;
 	private int idArbitre;
 	private int idPoule;
+	private Date date;
 
 	public Rencontre(int id) {
 		super();
@@ -17,8 +17,18 @@ public class Rencontre {
 	}
 	
 	private void init() {
-		// TODO Auto-generated method stub
-		
+		ControleurBD.initRencontre(this);
+	}
+	
+	public Date getDate() {
+		if(date == null) {
+			this.init();
+		}
+		return date;
+	}	
+
+	protected void setDate(Date date) {
+		this.date = date;
 	}
 
 	public int getId() {
@@ -92,5 +102,7 @@ public class Rencontre {
 	public String toString() {
 		return " [ " + this.getEquipes().get(0) + " / " + this.getEquipes().get(1) + " ] ";
 	}
+
+	
 
 }
