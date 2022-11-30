@@ -260,11 +260,15 @@ public class AccueilV2 {
 		});
 		frame.setMinimumSize(new Dimension(800, 600));
 	}
+	public void viderSide() {
+		panel_side.removeAll();
+	}
 
 	public void viderCartes() {
+		System.out.println("zsv");
 		for (Component comp : panel_main.getComponents()) {
 			panel_main.removeAll();
 		}
-		panel_side.updateUI();
+		panel_main.updateUI();
 	}
 }

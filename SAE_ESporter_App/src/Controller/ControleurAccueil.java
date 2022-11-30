@@ -30,10 +30,8 @@ public class ControleurAccueil implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		System.out.println(state);
 		btn = (JButton) e.getSource();
 		System.out.println(btn.getText());
-		vueAccueil.viderCartes();
 		switch (this.state) {
 		case ACCUEIL_SANS_VOLET:
 			switch (btn.getText()) {
@@ -44,12 +42,16 @@ public class ControleurAccueil implements ActionListener {
 				vueAccueil.viderCartes();
 				break;
 			case "Match":
+				vueAccueil.viderCartes();
 				break;
 			case "Jeu":
+				vueAccueil.viderCartes();
 				break;
 			case"Equipe":
+				vueAccueil.viderCartes();
 				break;
 			case"Ecurie":
+				vueAccueil.viderCartes();
 				break;
 			}
 		case ACCUEIL_AVEC_VOLET:
