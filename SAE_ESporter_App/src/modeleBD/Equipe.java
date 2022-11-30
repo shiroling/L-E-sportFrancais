@@ -84,6 +84,14 @@ public class Equipe {
 			return null;
 		}
 	}
+	
+	public Jeu getJeu() {
+		return new Jeu(this.idJeu);
+	}
+	
+	public Ecurie getEcurie() {
+		return new Ecurie(this.idEcurie);
+	}
 
 	public static String[] getStringEquipes() {
 		List<Equipe> equipes = Equipe.getToutesLesEquipes();

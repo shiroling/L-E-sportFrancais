@@ -86,6 +86,10 @@ public class Joueur {
 	protected void setPseudo(String pseudo) {
 		this.pseudo = pseudo;
 	}
+	
+	public Equipe getEquipe() {
+		return new Equipe(this.idEquipe);
+	}
 
 	public static String[] toStrings(List<Joueur> l) {
 		String[] result = new String[l.size()];

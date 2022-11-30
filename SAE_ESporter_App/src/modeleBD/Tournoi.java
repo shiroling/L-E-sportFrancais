@@ -181,25 +181,6 @@ public class Tournoi {
 	private static boolean isValidNom(String nomTounoi) {
 		return !ControleurBD.existeNomTournoi(nomTounoi);
 	}
-	
-	
 
-	
-
-	
-	public static boolean isValidToInsert(String nomTounoi, String porteeTournoi, String dateFinInscription, String dateDebutTournoi, String dateFinTournoi, int idJeu) {
-        return isValidNom(nomTounoi) && isValidDates(dateFinInscription, dateDebutTournoi, dateFinTournoi);
-    }
-
-
-    private static boolean isValidDates(String dateFinInscription, String dateDebutTournoi, String dateFinTournoi) {
-        if()
-        return false;
-    }
-
-
-    private static boolean isValidNom(String nomTounoi) {
-        return !ControleurBD.existeNomTournoi(nomTounoi);
-    }
 
 }

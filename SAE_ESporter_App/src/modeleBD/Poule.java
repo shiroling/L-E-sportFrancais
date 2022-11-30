@@ -35,6 +35,10 @@ public class Poule {
 		}
 		return idTournoi;
 	}
+	
+	public Tournoi getTournoi() {
+		return new Tournoi(this.idTournoi);
+	}
 
 	protected void setIsFinale(Boolean isFinale) {
 		this.isFinale = isFinale;

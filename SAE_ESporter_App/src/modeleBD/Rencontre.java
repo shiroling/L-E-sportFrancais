@@ -1,6 +1,8 @@
 package modeleBD;
 
+import java.awt.desktop.AboutEvent;
 import java.util.List;
+import java.util.random.RandomGenerator.ArbitrarilyJumpableGenerator;
 
 public class Rencontre {
 	private final int id;
@@ -65,6 +67,14 @@ public class Rencontre {
 	
 	public boolean estResultatRenseigne() {
 		return ControleurBD.estResultatRenseigne(getId());
+	}
+	
+	public Poule getArbitre() {
+		return new Poule(this.idPoule);
+	}
+	
+	public boolean isArbitreRencontre(int idArbitre) {
+		return idArbitre == this.idArbitre;
 	}
 
 	public static String[] toStrings(List<Rencontre> l) {
