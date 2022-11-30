@@ -21,9 +21,18 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.LineBorder;
+
+import Controller.ControleurAccueil;
+import modeleBD.Ecurie;
+import modeleBD.Equipe;
+import modeleBD.Jeu;
+import modeleBD.Rencontre;
+import modeleBD.Tournoi;
+
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.List;
 import java.awt.event.ContainerAdapter;
 import java.awt.event.ContainerEvent;
 
@@ -31,8 +40,11 @@ public class AccueilV2 {
 
 	private JFrame frame;
 	private JPanel panel_side;
+	private JPanel panel_main;
+	private ControleurAccueil controleur;
 
 	/**
+	 * 
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
@@ -59,6 +71,7 @@ public class AccueilV2 {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
+		controleur = new ControleurAccueil(this);
 		frame = new JFrame();
 		BorderLayout borderLayout = (BorderLayout) frame.getContentPane().getLayout();
 		borderLayout.setVgap(10);
@@ -120,30 +133,35 @@ public class AccueilV2 {
 
 		JButton btnTournois = new JButton("Tournois");
 		btnTournois.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		btnTournois.addActionListener(controleur);
 		panel_16.add(btnTournois);
 
 		JButton btnMatch = new JButton("Match");
 		btnMatch.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		btnMatch.addActionListener(controleur);
 		panel_16.add(btnMatch);
 
 		JButton btnJeu = new JButton("Jeu");
 		btnJeu.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		btnJeu.addActionListener(controleur);
 		panel_16.add(btnJeu);
 
 		JButton btnEquipe = new JButton("Equipe");
 		btnEquipe.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		btnEquipe.addActionListener(controleur);
 		panel_16.add(btnEquipe);
 
 		JButton btnEcurie = new JButton("Ecurie");
 		btnEcurie.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		btnEcurie.addActionListener(controleur);
 		panel_16.add(btnEcurie);
 
 		JScrollPane scrollPane = new JScrollPane();
 		frame.getContentPane().add(scrollPane, BorderLayout.CENTER);
 
-		JPanel panel_main = new JPanel();
+		panel_main = new JPanel();
 		scrollPane.setViewportView(panel_main);
-		panel_main.setLayout(new GridLayout(6, 3, 10, 10));
+		panel_main.setLayout(new GridLayout(12, 3, 10, 10));
 
 		JPanel panel_14 = new JPanel();
 		panel_14.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -220,7 +238,7 @@ public class AccueilV2 {
 					temp = new PanelTournois("Bouboule", "dateD", "DateF", equipes);
 				} else {
 					panel_side.add(new PanelTournois("Bouboule", "12/12/22", "12/01/23", equipes));
-					panel_side.getComponent(0).setMinimumSize(new Dimension(frame.getWidth()/4,0));
+					panel_side.getComponent(0).setMinimumSize(new Dimension(frame.getWidth() / 4, 0));
 					panel_side.updateUI();
 				}
 			}
@@ -231,31 +249,106 @@ public class AccueilV2 {
 		panel_7.addMouseListener(ma);
 		frame.addComponentListener(new ComponentAdapter() {
 			public void componentResized(ComponentEvent componentEvent) {
-				if (panel_main.getWidth() < 600) {
-					if (panel_main.getWidth() < 300) {
-						panel_main.setLayout(new GridLayout(panel_main.getComponentCount(), 1, 10, 10));
-					} else {
-						panel_main.setLayout(new GridLayout((panel_main.getComponentCount() / 2) + 1, 2, 10, 10));
-					}
-				} else if (panel_main.getWidth() > 600) {
-					if (panel_main.getWidth() > 864) {
-						panel_main.setLayout(new GridLayout((panel_main.getComponentCount() / 4) + 1, 4, 10, 10));
-					} else {
-						panel_main.setLayout(new GridLayout((panel_main.getComponentCount() / 3) + 1, 3, 10, 10));
-					}
-				}
-				panel_main.updateUI();
-			}
-		});
-		btnEcurie.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				for (Component comp : panel_side.getComponents()) {
-					panel_side.removeAll();
-				}
-				panel_side.updateUI();
+				ajusterGrille();
 			}
 		});
 		frame.setMinimumSize(new Dimension(800, 600));
 	}
+	
+	/**
+	 * ajuste la taille de la grille en fonction de la taille de la fenetre
+	 */
+	public void ajusterGrille() {
+		if(frame.getWidth() < 1200) {
+			panel_main.setLayout(new GridLayout((panel_main.getComponentCount()/2)+1, 2, 10, 10));
+		} else if (frame.getWidth() >= 1200) {
+			panel_main.setLayout(new GridLayout((panel_main.getComponentCount()/3)+1, 3, 10, 10));
+			if(frame.getWidth() >= 1900) {
+				panel_main.setLayout(new GridLayout((panel_main.getComponentCount()/4)+1, 4, 10, 10));
+			}
+		}
+			
+		panel_main.updateUI();
+	}
 
+	/**
+	 * vide le volet
+	 */
+	public void viderSide() {
+		panel_side.removeAll();
+	}
+
+	/**
+	 * vide la gille principale
+	 */
+	public void viderCartes() {
+		panel_main.removeAll();
+		panel_main.updateUI();
+	}
+
+	/**
+	 * 
+	 * @param ecuries 
+	 */
+	public void ajouterCartesEcurie(List<Ecurie> ecuries) {
+		CarteEcurie ce;
+		for (Ecurie ecurie : ecuries) {
+			ce = new CarteEcurie(ecurie.getNom(), ecurie.getNomManager());
+			ce.setName("CarteEcurie");
+			ce.setBorder(new LineBorder(new Color(0, 0, 0)));
+			ce.addMouseListener(null);
+			panel_main.add(ce);
+		}
+		ajusterGrille();
+	}
+
+	public void ajouterCartesTournois(List<Tournoi> tournois) {
+		CarteTournois ct;
+		for(Tournoi tournoi : tournois) {
+			ct = new CarteTournois(tournoi.getNom(), tournoi.getDateDebut().toString(), tournoi.getDateFin().toString());
+			ct.setName("CarteTournois");
+			ct.setBorder(new LineBorder(new Color(0, 0, 0)));
+			ct.addMouseListener(null);
+			panel_main.add(ct);
+		}
+		ajusterGrille();
+	}
+
+	public void ajouterCartesMatch(List<Rencontre> rencontres) {
+		CarteRencontre ct;
+		for(Rencontre rencontre : rencontres) {
+			ct = new CarteRencontre(rencontre.getEquipes().get(0), rencontre.getEquipes().get(1),rencontre.getDate(), rencontre.getVainqueur());
+			ct.setName("CarteRencontre");
+			ct.setBorder(new LineBorder(new Color(0, 0, 0)));
+			ct.addMouseListener(null);
+			panel_main.add(ct);
+		}
+		ajusterGrille();
+
+	}
+
+	public void ajouterCartesJeu(List<Jeu> jeux) {
+		CarteJeu ct;
+		for(Jeu jeu : jeux) {
+			ct = new CarteJeu(jeu.getNom());
+			ct.setName("CarteJeu");
+			ct.setBorder(new LineBorder(new Color(0, 0, 0)));
+			ct.addMouseListener(null);
+			panel_main.add(ct);
+		}
+		ajusterGrille();
+
+	}
+
+	public void ajouterCartesEquipe(List<Equipe> equipes) {
+		CarteEquipe ct;
+		for(Equipe equipe : equipes) {
+			ct = new CarteEquipe(equipe.getNom(), equipe.getManager(), equipe.getEcurie());
+			ct.setName("CarteJeu");
+			ct.setBorder(new LineBorder(new Color(0, 0, 0)));
+			ct.addMouseListener(null);
+			panel_main.add(ct);
+		}
+		ajusterGrille();
+	}
 }
