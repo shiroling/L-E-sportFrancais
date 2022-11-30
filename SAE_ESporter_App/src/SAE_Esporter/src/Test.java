@@ -1,18 +1,16 @@
 package SAE_Esporter.src;
 
+import java.sql.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 import modeleBD.ControleurBD;
-import modeleBD.Ecurie;
-import modeleBD.Equipe;
-import modeleBD.Jeu;
-import modeleBD.Joueur;
-import modeleBD.Poule;
 import modeleBD.Rencontre;
 import modeleBD.Tournoi;
 
 public class Test {
 
+	@SuppressWarnings({"unused" })
 	public static void main(String[] args) {
 		
 		//List<Tournoi>  l = ControleurBD.getListeTournois();
@@ -23,11 +21,14 @@ public class Test {
 		//List<Poule>  l = ControleurBD.getListePoules();
 		List<Rencontre>  l = ControleurBD.getListeRencontre();
 		
+		LocalDate d = LocalDate.of(1914, 6, 28);
+		Date dfi = java.sql.Date.valueOf(LocalDate.of(1914, 6, 28));
+		Date ddt = java.sql.Date.valueOf(LocalDate.of(1914, 7, 28));
+		Date dft = java.sql.Date.valueOf(LocalDate.of(1918, 7, 28));
+		int i[] = {(1), (2)};  
+		Tournoi.insererTournoisMultigaming("bébouMulti", Portee.NATIONAL, dfi, ddt, dft, i, 3);
 		
-
-		for(Rencontre t : l) {
-			System.out.println(t);
-		}
+		
 	}
 
 }

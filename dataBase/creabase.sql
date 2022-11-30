@@ -68,7 +68,9 @@ CREATE TABLE Tournoi(
    PRIMARY KEY(Id_Tournoi),
    FOREIGN KEY(Id_Gerant) REFERENCES Gerant(Id_Gerant),
    FOREIGN KEY(Id_Jeu) REFERENCES Jeu(Id_Jeu),
-   CONSTRAINT CK_Tournoi_Portée CHECK (Portée in ('Local','National','International'))
+   CONSTRAINT CK_Tournoi_Portée CHECK (Portée in ('Local','National','International')),
+   UNIQUE(nom)
+
 );
 CREATE SEQUENCE Seq_Tournoi START WITH 1 INCREMENT BY 1;
 
