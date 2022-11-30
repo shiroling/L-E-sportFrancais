@@ -33,6 +33,7 @@ public class AccueilV2 {
 	private JPanel panel_side;
 
 	/**
+	 * 
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
