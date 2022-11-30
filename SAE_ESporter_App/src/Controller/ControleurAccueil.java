@@ -10,17 +10,19 @@ import IHM.Accueil;
 import IHM.AccueilV2;
 import IHM.CreerTournoi;
 import IHM.Test;
+import modeleBD.ControleurBD;
 
 public class ControleurAccueil implements ActionListener {
 
 	private Etat state;
-	private AccueilV2 vueAccueil;
+	private AccueilV2 vue;
+	private Object obj;
 	private JButton btn;
 	private ConnexionUtilisateur.ConnexionState connexionState;
 
-	public ControleurAccueil(AccueilV2 vueAccueil) {
+	public ControleurAccueil(AccueilV2 vue) {
 		this.state = Etat.ACCUEIL_SANS_VOLET;
-		this.vueAccueil = vueAccueil;
+		this.vue = vue;
 		connexionState = ConnexionState.NON_CONNECTE;
 	}
 
@@ -30,38 +32,46 @@ public class ControleurAccueil implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		btn = (JButton) e.getSource();
-		System.out.println(btn.getText());
-		switch (this.state) {
-		case ACCUEIL_SANS_VOLET:
-			switch (btn.getText()) {
-			case "Creer Tournoi":
-				procedureCreerTournoi();
+		obj =  e.getSource();
+		if (obj instanceof JButton) {
+			btn = (JButton) obj;
+			switch (this.state) {
+			case ACCUEIL_SANS_VOLET:
+				switch (btn.getText()) {
+				case "Creer Tournoi":
+					procedureCreerTournoi();
+					break;
+				case "Tournois":
+					vue.viderCartes();
+					vue.ajouterCartesTournois(ControleurBD.getListeTournois());
+					break;
+				case "Match":
+					vue.viderCartes();
+					vue.ajouterCartesMatch(ControleurBD.getListeRencontre());
+					break;
+				case "Jeu":
+					vue.viderCartes();
+					vue.ajouterCartesJeu(ControleurBD.getListeJeux());
+					break;
+				case"Equipe":
+					vue.viderCartes();
+					vue.ajouterCartesEquipe(ControleurBD.getListeEquipes());
+					break;
+				case"Ecurie":
+					vue.viderCartes();
+					vue.ajouterCartesEcurie(ControleurBD.getListeEcurie());
+					break;
+				}
+			case ACCUEIL_AVEC_VOLET:
 				break;
-			case "Tournois":
-				vueAccueil.viderCartes();
+			case CONNEXION:
 				break;
-			case "Match":
-				vueAccueil.viderCartes();
-				break;
-			case "Jeu":
-				vueAccueil.viderCartes();
-				break;
-			case"Equipe":
-				vueAccueil.viderCartes();
-				break;
-			case"Ecurie":
-				vueAccueil.viderCartes();
+			case FORMULAIRE:
 				break;
 			}
-		case ACCUEIL_AVEC_VOLET:
-			break;
-		case CONNEXION:
-			break;
-		case FORMULAIRE:
-			break;
-		}
 
+		}
+		
 	}
 
 	public void setConnexionState(ConnexionUtilisateur.ConnexionState c) {
