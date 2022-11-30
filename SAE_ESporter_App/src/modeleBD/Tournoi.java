@@ -163,8 +163,10 @@ public class Tournoi {
 		ControleurBD.insererTournoi(nomTounoi, porteeTournoi, dateFinInscription, dateDebutTournoi, dateFinInscription, idJeu);
 	}
 	
-	public static void insérerTournoisMultigaming(String nomTounoi, Portee porteeTournoi, Date dateFinInscription, Date dateDebutTournoi, Date dateFinTournoi, int idJeu[]) {
-		// TODO Implémenter cette méthode SVP
+	public static void insererTournoisMultigaming(String nomTournoi, String porteeTournoi, String dateFinInscription, String dateDebutTournoi, String dateFinTournoi, int idJeu[]) {
+		for (int i : idJeu) {
+			ControleurBD.insererTournoi(nomTournoi + " - " + ControleurBD.getNomJeu(i), porteeTournoi, dateFinInscription, dateDebutTournoi, dateFinTournoi, i);
+		}
 	}
 	
 	public static boolean isValidToInsert(String nomTounoi, Portee porteeTournoi, Date dateFinInscription, Date dateDebutTournoi, Date dateFinTournoi, int idJeu) {
@@ -185,5 +187,19 @@ public class Tournoi {
 	
 
 	
+	public static boolean isValidToInsert(String nomTounoi, String porteeTournoi, String dateFinInscription, String dateDebutTournoi, String dateFinTournoi, int idJeu) {
+        return isValidNom(nomTounoi) && isValidDates(dateFinInscription, dateDebutTournoi, dateFinTournoi);
+    }
+
+
+    private static boolean isValidDates(String dateFinInscription, String dateDebutTournoi, String dateFinTournoi) {
+        if()
+        return false;
+    }
+
+
+    private static boolean isValidNom(String nomTounoi) {
+        return !ControleurBD.existeNomTournoi(nomTounoi);
+    }
 
 }

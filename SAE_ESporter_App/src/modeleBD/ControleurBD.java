@@ -501,22 +501,35 @@ public class ControleurBD {
 		}
 	}
 	
-	public static boolean existeNomTournoi(String nomTournoi) {
-        try {
-            Statement st = ConnexionBase.getConnectionBase().createStatement();
-            ResultSet rs = st.executeQuery("Select id_tournoi from Tournoi where nom = '" + nomTournoi + "'");
-            boolean check = rs.next();
-            st.close();
-            if (check) {
-                return true;
-            } else {
-                return false;
-            }
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-            return false;
-        }
-    }
+	public static String getNomJeu(int idJeu) {
+		try {
+			Statement st = ConnexionBase.getConnectionBase().createStatement();
+			ResultSet rs = st.executeQuery("Select nom_jeu from Jeu where id_Jeu = "+ idJeu);
+			rs.next();
+			String var = rs.getString(1);
+			rs.close();
+			st.close();
+			return var;
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			return null;
+		}
+	}
+	
+	public static int getIdJeu(int nomJeu) {
+		try {
+			Statement st = ConnexionBase.getConnectionBase().createStatement();
+			ResultSet rs = st.executeQuery("Select id_jeu from Jeu where nom_jeu = "+ nomJeu);
+			rs.next();
+			int var = rs.getInt(1);
+			rs.close();
+			st.close();
+			return var;
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			return null;
+		}
+	}
 	
 	public static boolean estResultatRenseigne(int idRencontre) {
 		try {
@@ -535,34 +548,30 @@ public class ControleurBD {
 		}
 	}
 	
+	public static boolean existeNomTournoi(String nomTournoi) {
+		try {
+			Statement st = ConnexionBase.getConnectionBase().createStatement();
+			ResultSet rs = st.executeQuery("Select id_tournoi from Tournoi where nom = '"+ nomTournoi + "'");
+			boolean check = rs.next();
+			st.close();
+			if (check) {
+				return true;
+			}
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			return false;
+		}
+	}
 	
-	
-	public static void insererTournoi(String nomTounoi, Portee porteeTournoi, Date dateFinInscription, Date dateDebutTournoi, Date dateFinInscription2, int idJeu) {
 		Connection connex = ConnexionBase.getConnectionBase();
 		try {
-			PreparedStatement st = connex.prepareStatement("Insert into Tournoi values (Seq_Tournoi.nextVal, ?, ?, TO_DATE(?, 'DD/MM/YYYY'),TO_DATE(?, 'DD/MM/YYYY'),TO_DATE(?, 'DD/MM/YYYY'),?, 1)");
 			st.setString(1, nomTounoi);
-			st.setString(2, porteeTournoi.getName());
-			st.setDate(3, dateFinInscription);
-			st.setDate(4, dateDebutTournoi);
-			st.setDate(5, dateFinInscription2);
 			st.setInt(6, idJeu);
 			st.executeUpdate();
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
 	}
-	
-	
 
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 }
