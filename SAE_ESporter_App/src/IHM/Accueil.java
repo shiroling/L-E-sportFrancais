@@ -24,7 +24,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
 
-import SAE_Esporter.src.AffichageGauche;
+import SAE_Esporter.AffichageGauche;
 import modeleBD.ControleurBD;
 import modeleBD.Tournoi;
 

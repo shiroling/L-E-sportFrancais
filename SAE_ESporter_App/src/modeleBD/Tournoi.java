@@ -3,7 +3,7 @@ package modeleBD;
 import java.sql.Date;
 import java.util.List;
 
-import SAE_Esporter.src.Portee;
+import SAE_Esporter.Portee;
 
 public class Tournoi {
 	private int id;

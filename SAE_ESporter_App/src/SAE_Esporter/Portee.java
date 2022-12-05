@@ -1,4 +1,4 @@
-package SAE_Esporter.src;
+package SAE_Esporter;
 
 
 public enum Portee {

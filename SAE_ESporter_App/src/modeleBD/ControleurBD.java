@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.sql.Date;
 import java.util.List;
 
-import SAE_Esporter.src.Portee;
+import SAE_Esporter.Portee;
 
 public class ControleurBD {
 
@@ -527,7 +527,7 @@ public class ControleurBD {
 		}
 	}
 
-	public static int getIdJeu(int nomJeu) {
+	public static int getIdJeu(String nomJeu) {
 		try {
 			Statement st = ConnexionBase.getConnectionBase().createStatement();
 			ResultSet rs = st.executeQuery("Select id_jeu from Jeu where nom_jeu = " + nomJeu);
@@ -606,9 +606,7 @@ public class ControleurBD {
 			st.executeUpdate();
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
-			return false;
 		}
-		return false;
 	}
 
 	public static boolean isGestionnaire(String id, String mdp) {
