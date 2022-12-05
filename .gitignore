@@ -20,6 +20,21 @@ local.properties
 .classpath
 .settings/
 .loadpath
+SAE_ESporter_App/*.pydevproject
+SAE_ESporter_App/.project
+SAE_ESporter_App/.metadata/*
+SAE_ESporter_App/.metadata/
+SAE_ESporter_App/bin/**
+SAE_ESporter_App/tmp/**
+SAE_ESporter_App/tmp/**/*
+SAE_ESporter_App/*.tmp
+SAE_ESporter_App/*.bak
+SAE_ESporter_App/*.swp
+SAE_ESporter_App/*~.nib
+SAE_ESporter_App/local.properties
+SAE_ESporter_App/.classpath
+SAE_ESporter_App/.settings/
+SAE_ESporter_App/.loadpath
 
 # External tool builders
 .externalToolBuilders/
