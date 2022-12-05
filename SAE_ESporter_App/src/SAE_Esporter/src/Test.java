@@ -12,7 +12,7 @@ public class Test {
 
 	@SuppressWarnings({"unused" })
 	public static void main(String[] args) {
-		
+		/*
 		//List<Tournoi>  l = ControleurBD.getListeTournois();
 		//List<Ecurie>  l = ControleurBD.getListeEcurie();
 		//List<Equipe>  l = ControleurBD.getListeEquipes();
@@ -27,8 +27,10 @@ public class Test {
 		Date dft = java.sql.Date.valueOf(LocalDate.of(1918, 7, 28));
 		int i[] = {(1), (2)};  
 		Tournoi.insererTournoisMultigaming("bébouMulti", Portee.NATIONAL, dfi, ddt, dft, i, 3);
-		
-		
+	*/
+		for (String string : Portee.toStrings2()) {
+			System.out.println(string);
+		}
 	}
 
 }

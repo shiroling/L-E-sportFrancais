@@ -140,12 +140,13 @@ public class ControleurBD {
 	public static void initRencontre(Rencontre r) {
 		try {
 			Statement st = ConnexionBase.getConnectionBase().createStatement();
+			
 			ResultSet rs = st
 					.executeQuery("Select id_arbitre, id_poule, date_rencontre from rencontre where id_rencontre = " + r.getId());
-
-			r.setIdArbitre(rs.getInt(0));
-			r.setIdPoule(rs.getInt(1));
-			r.setDate(rs.getDate(2));
+			rs.next();
+			r.setIdArbitre(rs.getInt("id_arbitre"));
+			r.setIdPoule(rs.getInt("id_poule"));
+			r.setDate(rs.getDate("date_rencontre"));
 
 			st.close();
 		} catch (Exception err) {

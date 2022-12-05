@@ -1,5 +1,7 @@
 package SAE_Esporter.src;
 
+import java.util.stream.Stream;
+
 public enum Mois {
 	JANVIER("Janvier"), FEVRIER("Février"), MARS("Mars"), AVRIL("Avril"), MAI("Mai"), JUIN("Juin"), JUILLET("Juillet"), AOUT("Août"), SEPTMBRE("Septembre"), OCTOBRE("Octobre"), NOVEMBRE("Novembre"), DECEMBRE("Décembre");
 	
@@ -14,12 +16,6 @@ public enum Mois {
 	}
 	
 	public static String[] toStrings() {
-		String[] mois = new String[12];
-		int i = 0;
-		for(Mois m : Mois.values()) {
-			mois[i] = m.denomination;
-			i++;
-		}
-		return mois;
+		return Stream.of(Mois.values()).toArray(String[]::new);
 	}
 }
