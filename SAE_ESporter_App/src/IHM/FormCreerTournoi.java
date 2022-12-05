@@ -10,7 +10,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import Controller.ControleurFromCreerTournoi;
-import SAE_Esporter.src.Mois;
+import SAE_Esporter.Mois;
 import modeleBD.ControleurBD;
 import modeleBD.Jeu;
 

@@ -27,6 +27,7 @@ public class ControleurFromCreerTournoi implements ActionListener {
 		this.btn = (JButton) e.getSource();
 		switch (btn.getName()) {
 		case "btnAjouterJeu":
+			this.jeux.add(new Jeu(ControleurBD.getIdJeu(this.vue.getComboJeux().getSelectedItem().toString())));// Stockage du jeu selectionné
 			this.vue.ajouterJeuDansPanel(this.vue.getComboJeux().getSelectedItem().toString());
 			this.vue.getComboJeux().removeItem(this.vue.getComboJeux().getSelectedItem());;
 			break;
