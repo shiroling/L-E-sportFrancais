@@ -4,8 +4,6 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-import modeleBD.Login;
-
 public class ConnexionBase {
 	private final static String login = Login.getLogin();
 	private final static String mdp = Login.getMdp();

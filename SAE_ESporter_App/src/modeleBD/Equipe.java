@@ -107,4 +107,9 @@ public class Equipe {
 		return this.getNom();
 	}
 
+	public String getManager() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }
