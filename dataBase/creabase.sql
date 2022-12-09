@@ -59,7 +59,7 @@ CREATE SEQUENCE Seq_Joueur START WITH 1 INCREMENT BY 1;
 CREATE TABLE Tournoi(
    Id_Tournoi INT,
    nom VARCHAR(50) NOT NULL,
-   Portée VARCHAR(50) NOT NULL,
+   Portee VARCHAR(50) NOT NULL,
    dateFinInsriptions DATE NOT NULL,
    dateDebutTournoi DATE NOT NULL,
    dateFinTournoi DATE NOT NULL,
@@ -68,9 +68,8 @@ CREATE TABLE Tournoi(
    PRIMARY KEY(Id_Tournoi),
    FOREIGN KEY(Id_Gerant) REFERENCES Gerant(Id_Gerant),
    FOREIGN KEY(Id_Jeu) REFERENCES Jeu(Id_Jeu),
-   CONSTRAINT CK_Tournoi_Portée CHECK (Portée in ('Local','National','International')),
+   CONSTRAINT CK_Tournoi_Portée CHECK (Portee in ('Local','National','International')),
    UNIQUE(nom)
-
 );
 CREATE SEQUENCE Seq_Tournoi START WITH 1 INCREMENT BY 1;
 
